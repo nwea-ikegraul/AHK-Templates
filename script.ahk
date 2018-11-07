@@ -2,27 +2,21 @@
 SendMode Input
 
 
-#+s::
+::studentmissingreport:: ;Hotstring to start students missing from reports template
   {
-    Gui, Add, Button, -default, Student missing on report
-    Gui, Show,, Case Notes
-    return
+      ;Create GUI
+      Gui, Add, Text,, Is the whole class missing or just specific student(s)?
+      Gui, Add, Button, -default, Whole Class
+      Gui, Add, Button, -default, Specific Students
 
-    ButtonStudentmissingonreport: ;Button for
-      Gui, Submit
-      Gui, New, ,Student Missing on Reports
-      Gui, Add, Button, -default, Reporting Attributes
-      Gui, Add, Button, -default, Outside Window
-      Gui, Show,, Case Notes
+      ;create the GUI for specific students and add buttons/text
+      Gui, Add, Text,, Student's Name
+      Gui, Add, Text,, Test
+      Gui, Add, Test,, Report
+      Gui, Add, Edit, vStudentName ym
+      Gui, Add, Edit, vTest
+      Gui, Add, Edit, vReport, Unspecified
       return
 
-    ButtonReportingAttributes:
-      Gui, Add, Edit, vStudentName
-      Gui, Add, Button, default, OK
 
-
-
-    ButtonOutsideWindow:
-      Gui, Add, Edit, vStudentName
-      Gui, Add, Button, default, OK
   }
