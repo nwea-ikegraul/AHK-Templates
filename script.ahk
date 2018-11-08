@@ -4,6 +4,10 @@ SendMode Input
 
 ::studentmissingreport:: ;Hotstring to start students missing from reports template
   {
+      ;Variables used in this script
+      scope =
+      StudentName =
+      WinGet, window, WinTitle
       ;Create GUI
       Gui, Add, Text,, Is the whole class missing or just specific student(s)?
       Gui, Add, Button, -default, Whole Class
@@ -43,5 +47,7 @@ SendMode Input
 
       ButtonNext:
         if (scope = student)
-          Send 
+          Send this is for a student
+          ExitApp
+
   }
