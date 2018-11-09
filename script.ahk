@@ -8,36 +8,8 @@ SendMode Input
       scope =
       StudentName =
       WinGet, window, ID ;may not need this var,
-      Attribute =
+      attribute =
 
-      ;subroutines
-      compileAttributes := If FirstName {
-          Attribute .= "First Name `n"
-        }
-        If LastName {
-          Attribute .= "Last Name `n"
-        }
-        If DOB {
-          Attribute .= "Date of Birth `n"
-        }
-        If ID {
-          Attribute .= "ID `n"
-        }
-        If Gender {
-          Attribute .= "Gender `n"
-        }
-        If Grade {
-          Attribute .= "Grade `n"
-        }
-        If Ethnicity {
-          Attribute .= "Ethnicity `n"
-        }
-        If Class {
-          Attribute .= "Class `n"
-        }
-        If SchoolOfRecord {
-          Attribute .= "School of Record `n"
-        }
 
       ;Create GUI
       Gui, Add, Text,, Is the whole class missing or just specific student(s)?
@@ -83,13 +55,13 @@ SendMode Input
           Gui, Destroy
           Gui, Add, Text,, Are any reporting attributes missing?
           Gui, Add, Checkbox, vDOB, Date of birth
-          Gui, Add, Checkbox, vGender, Gender
-          Gui, Add, Checkbox, vGrade, Grade
-          Gui, Add, Checkbox, vEthnicity, Ethnicity
-          Gui, Add, Checkbox, vClass, Class
-          Gui, Add, Checkbox, vSchoolOfRecord, School of record
-          Gui, Add, Checkbox, vFirstName, First Name
-          Gui, Add, Checkbox, vLastName, Last Name
+          Gui, Add, Checkbox, vgender, Gender
+          Gui, Add, Checkbox, vgrade, Grade
+          Gui, Add, Checkbox, vethnicity, Ethnicity
+          Gui, Add, Checkbox, vclass, Class
+          Gui, Add, Checkbox, vschoolOfRecord, School of record
+          Gui, Add, Checkbox, vfirstName, First Name
+          Gui, Add, Checkbox, vlastName, Last Name
           Gui, Add, Checkbox, vID, ID
           Gui, Add, Button, -default, Continue
           Gui, Add, Button, -default, Complete
@@ -101,8 +73,32 @@ SendMode Input
         ;Compiles all gathered information and creates case notes
         ButtonComplete:
           Gui, Submit ;Saves user input
-          compileAttributes()
-          Send Student: %StudentName% `nThe following attributes are missing `n%Attribute%
+          If DOB {
+            attribute .= "Date of birth `n"
+          }
+          If gender{
+            attribute .= "Gender `n"
+          }
+          
+          If ethnicity{
+            attribute .= "Ethnicity `n"
+          }
+          If class{
+            attribute .= "Class `n"
+          }
+          If schoolofRecord {
+            attribute .= "School of Record `n"
+          }
+          If firstName {
+            attribute .= "First Name `n"
+          }
+          If lastName {
+            attribute .= "Last Name `n"
+          }
+          If ID {
+            attribute .= "ID `n"
+          }
+          Send Student is missing reporting attributes: `n%attribute%
           ExitApp
 
 
