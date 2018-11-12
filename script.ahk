@@ -70,6 +70,13 @@ SendMode Input
         if (scope = class)
           Gui, Destroy
 
+        ButonContiue:
+        Gui, Submit
+        Gui, Destroy
+        Gui, Add, Text,, Is the test completed, suspended or terminated?
+        Gui, Add, Add, ListBox, r3 vstatus, Complete|Suspended|Terminated
+
+
         ;Compiles all gathered information and creates case notes
         ButtonComplete:
           Gui, Submit ;Saves user input
@@ -79,7 +86,7 @@ SendMode Input
           If gender{
             attribute .= "Gender `n"
           }
-          
+
           If ethnicity{
             attribute .= "Ethnicity `n"
           }
