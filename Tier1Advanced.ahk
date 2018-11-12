@@ -60,6 +60,21 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; Student name is missing from test drop down list - Status Terminated
 ::#testmissingterminated::{shift down}{tab 10}{shift up}{down}{tab}{down 5}{tab 2}{down}{tab}{down 7}{tab 2}{down}{tab 6}Student Missing in Test Drop Down List{tab}Partner can't find student's name when trying to log into test.{tab}Issue/Update: {Enter}Student was kicked out of test and could not find their name. {Enter}{Enter}Steps Taken: {Enter}Advised Partner to {Enter}- Select student in proctor's test session. {Enter}- Select Action > Test Again. {Enter}- Refresh student browser. {Enter}{Enter}Define Resolution/Next Steps: {Enter}Student can now find their name.{Enter}{Enter}Additional Notes: {Enter}{End}
 
+;;Dekalb IT redirect
+::#dekalbit::Dekalb IT{tab}Partner needs to work with their IT.{tab}Partner will call back and choose a different option to get their IT department.{end}{tab 3}
+::#cdekalb::{shift down}{tab}{shift up}{down}{tab 2}{down}{tab}{down 2}{tab 2}{down 7}{tab 2}{down}{tab 2}{down}{tab 6}
+
+;;StudyIsland Export
+::#studyIsland::Study Island Export{tab}Partner needs to run a study Island Export.{tab}Issue/Update:{Enter}Partner needs to run a study Island Export.{Enter 2}Steps Taken:{Enter}Walked partner through running a Data Export Scheduler and choosing the Comprehensive Data File.{Enter 2}Define Resolution/Next Steps:{Enter}Advised partner the report usually runs at the top of the hour and they can come back to this page to find the download at the bottom.{end}{tab 3}
+;::#cStudyIsland::{shift down}{tab}{shift up}{down}{tab 2}{down 2}{tab}
+;;CPS Redirect
+::#CPSCase::in progress
+
+;;One Student Cannot Test
+::#oneStudent::in progress
+
+;;Temp MAP Skills Outage
+::#skillsOutage::{shift down}{tab 21}{shift up}02090260{tab 11}{down 9}{tab}{down 2}{tab 2}{down 3}{tab}{down 4}{tab 2}{down}{tab 6}MAP Skills Unavaliable{tab}Partner isn't able to see MAP Skills as an option on the MAP home page.{Tab}Issue/Update:{enter}Partner isn't able to see MAP Skills as an option on the MAP home page.{enter 2}Steps Taken:{enter}Advised partner this is an issue we're aware of and engineers are currently investigating.{enter}Verified MAP Skills is enabled for the District, but disabled for all schools.{enter 2}Define Resolution/Next Steps:{enter}Partner can check the status.nwea.org page for updates.{end} {tab 3}
 
 ; HOT STRINGS
 ::acct::account
@@ -80,9 +95,13 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ::crf::Class Roster File
 
+::dac::District Assessment Coordinator
+
 ::dadmin::data administrator
 
 ::drr::data repair request
+
+::hira::high level of rapid guessing
 
 ::iep:: individual education program
 
@@ -134,9 +153,13 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ::sadmin::system administrator
 
+::swvtr::Students Without Valid Test Results
+
 ::tt2::Transferred to Tier 2
 
 ::viewr::View Reports
+
+::vute::View/Update Test Events
 
 ::wbm::Web-based MAP
 
@@ -145,19 +168,3 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ::wtk::wants to know
 
 ::wts::wants to see
-
-::dac::District Assessment Coordinator
-
-::vute::View/Update Test Events
-
-::swvtr::Students Without Valid Test Results
-
-::hira::high level of rapid guessing
-
-;;Dekalb IT redirect
-::#dekalbit::Dekalb IT{tab}Partner needs to work with their IT.{tab}Partner will call back and choose a different option to get their IT department.{end}{tab 3}
-::#cdekalb::{shift down}{tab}{shift up}{down}{tab 2}{down}{tab}{down 2}{tab 2}{down 7}{tab 2}{down}{tab 2}{down}{tab 6}
-
-;;StudyIsland Export
-::#studyIsland::Study Island Export{tab}Partner needs to run a study Island Export.{tab}Issue/Update:{Enter}Partner needs to run a study Island Export.{Enter 2}Steps Taken:{Enter}Walked partner through running a Data Export Scheduler and choosing the Comprehensive Data File.{Enter 2}Define Resolution/Next Steps:{Enter}Advised partner the report usually runs at the top of the hour and they can come back to this page to find the download at the bottom.{end}{tab 3}
-;;CPS Redirect
