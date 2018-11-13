@@ -2,12 +2,12 @@
 SendMode Input
 
 
-::studentmissingreport:: ;Hotstring to start students missing from reports template
+::missingreport:: ;Hotstring to start students missing from reports template
   {
       ;Variables used in this script
       scope =
       StudentName =
-      WinGet, window, ID ;may not need this var,
+      window := WinExist("A") ;gets the ID for the current active window where the hotstring was triggered
       attribute =
 
 
@@ -73,13 +73,14 @@ SendMode Input
         ButonContiue:
         Gui, Submit
         Gui, Destroy
-        Gui, Add, Text,, Is the test completed, suspended or terminated?
-        Gui, Add, Add, ListBox, r3 vstatus, Complete|Suspended|Terminated
+        ;Gui, Add, Text,, Is the test completed, suspended or terminated?
+        ;Gui, Add, Add, ListBox, r3 vstatus, Complete|Suspended|Terminated
 
 
         ;Compiles all gathered information and creates case notes
         ButtonComplete:
           Gui, Submit ;Saves user input
+
           If DOB {
             attribute .= "Date of birth `n"
           }
@@ -105,6 +106,7 @@ SendMode Input
           If ID {
             attribute .= "ID `n"
           }
+          WinActivate, ahk_id %window% ;returns to window where hotstring was triggered
           Send Student is missing reporting attributes: `n%attribute%
           ExitApp
 
