@@ -1,9 +1,19 @@
 #NoEnv
 SendMode Input
+OnExit("ExitFunc")
+ExitFunc(ExitReason, ExitCode)
+    {
+      Run missingReports.ahk
+    }
 
 
 ::missingreport:: ;Hotstring to start students missing from reports template
   {
+
+
+
+
+
       ;Variables used in this script
       scope =
       StudentName =
@@ -11,7 +21,9 @@ SendMode Input
       attribute =
 
 
-      ;Create GUI
+      ;GUI
+      ;------------------------
+
       Gui, Add, Text,, Is the whole class missing or just specific student(s)?
       Gui, Add, Button, -default, Whole Class
       Gui, Add, Button, -default, Specific Students
@@ -22,6 +34,16 @@ SendMode Input
       ButtonSpecificStudents:
         scope := student
         Gui, Destroy
+        Gui, Add, Text,, Is the test completed, suspened, or terminated?
+        Gui, Add, Button, -default, Completed
+        Gui, Add, Button, -default, Suspended
+        Gui, Add, Button, -default, Terminated
+        Gui, Show,, Test Status
+      return
+
+
+      ButtonCompleted:
+        Gui, Destroy
         Gui, Add, Text,, Student's Name
         Gui, Add, Text,, Test
         Gui, Add, Text,, Report
@@ -31,6 +53,16 @@ SendMode Input
         Gui, Add, Button, default, Next
         Gui, Show,, Students Missing from Reports
       return
+
+      ButtonSuspended:
+        WinActivate, ahk_id %window%
+        Send Student's test is currently suspended.
+        ExitApp
+
+      ButtonTerminated:
+        WinActivate, ahk_id %window%
+        Send Student's test is terminated.
+        ExitApp
 
       ;create the GUI for class and add buttons/text
       ButtonWholeClass:
