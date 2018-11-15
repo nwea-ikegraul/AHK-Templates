@@ -6,111 +6,53 @@ ExitFunc(ExitReason, ExitCode)
       Run missingReports.ahk
     }
 
-
 ::missingreport:: ;Hotstring to start students missing from reports template
   {
 
-
-
-
-
       ;Variables used in this script
-      scope =
-      StudentName =
       window := WinExist("A") ;gets the ID for the current active window where the hotstring was triggered
       attribute =
-
 
       ;GUI
       ;------------------------
 
-      Gui, Add, Text,, Is the whole class missing or just specific student(s)?
-      Gui, Add, Button, -default, Whole Class
-      Gui, Add, Button, -default, Specific Students
-      Gui, Show,, Students Missing from Reports
-      return
-
-      ;create the GUI for specific students and add buttons/text
-      ButtonSpecificStudents:
-        scope := student
-        Gui, Destroy
-        Gui, Add, Text,, Is the test completed, suspened, or terminated?
-        Gui, Add, Button, -default, Completed
-        Gui, Add, Button, -default, Suspended
-        Gui, Add, Button, -default, Terminated
-        Gui, Show,, Test Status
-      return
-
-
-      ButtonCompleted:
-        Gui, Destroy
-        Gui, Add, Text,, Student's Name
-        Gui, Add, Text,, Test
-        Gui, Add, Text,, Report
-        Gui, Add, Edit, vStudentName ym
-        Gui, Add, Edit, vTest
-        Gui, Add, Edit, vReport, Unspecified
-        Gui, Add, Button, default, Next
-        Gui, Show,, Students Missing from Reports
-      return
-
-      ButtonSuspended:
-        WinActivate, ahk_id %window%
-        Send Student's test is currently suspended.
-        ExitApp
-
-      ButtonTerminated:
-        WinActivate, ahk_id %window%
-        Send Student's test is terminated.
-        ExitApp
-
-      ;create the GUI for class and add buttons/text
-      ButtonWholeClass:
-        scope := class
-        Gui, Destroy
-        Gui, Add, Text,, Teachers's Name
-        Gui, Add, Text,, Class Name
-        Gui, Add, Text,, Test
-        Gui, Add, Text,, Report
-        Gui, Add, Edit, vTeachersName ym
-        Gui, Add, Edit, vClassName
-        Gui, Add, Edit, vTest
-        Gui, Add, Edit, vReport, Unspecified
-        Gui, Add, Button, default, Next
-        Gui, Show,, Students Missing from Reports
-      return
-
-      ;Checks the scope then adds Gui for correct path
-      ButtonNext:
-        Gui, Submit ;Saves user input
-        if (scope = student)
-          Gui, Destroy
-          Gui, Add, Text,, Are any reporting attributes missing?
-          Gui, Add, Checkbox, vDOB, Date of birth
-          Gui, Add, Checkbox, vgender, Gender
-          Gui, Add, Checkbox, vgrade, Grade
-          Gui, Add, Checkbox, vethnicity, Ethnicity
-          Gui, Add, Checkbox, vclass, Class
-          Gui, Add, Checkbox, vschoolOfRecord, School of record
-          Gui, Add, Checkbox, vfirstName, First Name
-          Gui, Add, Checkbox, vlastName, Last Name
-          Gui, Add, Checkbox, vID, ID
-          Gui, Add, Button, -default, Continue
-          Gui, Add, Button, -default, Complete
-          Gui, Show,, Reporting Attributes
-          return
-        if (scope = class)
-          Gui, Destroy
-
-        ButonContiue:
-        Gui, Submit
-        Gui, Destroy
-        ;Gui, Add, Text,, Is the test completed, suspended or terminated?
-        ;Gui, Add, Add, ListBox, r3 vstatus, Complete|Suspended|Terminated
+        Gui, Add, Text, x2 y-1 w390 h30 , Missing from Reports
+        Gui, Add, Edit, x2 y29 w390 h210 vcaseNotes, <preview>
+        Gui, Add, Button, x2 y529 w390 h50 , Submit
+        Gui, Add, Tab, x2 y239 w390 h290 , Student|Class
+        Gui, Tab, Student
+        Gui, Add, Text, x102 y279 w160 h30 +Center, Student missing from reports
+        Gui, Tab, Class
+        Gui, Add, Text, x102 y279 w170 h30 +Center, Class missing from reports
+        Gui, Tab, Student
+        Gui, Add, Text, x12 y319 w80 h20 , Student Name
+        Gui, Add, Edit, x102 y319 w110 h20 vStudentName
+        Gui, Add, Text, x12 y349 w80 h20 , Test Name
+        Gui, Add, Edit, x102 y349 w110 h20 vTestName
+        Gui, Add, Text, x12 y379 w80 h20 , Report
+        Gui, Add, DropDownList, x102 y379 w110 h20 r4 vReport, All||ASG|Student Progress|Student Profile
+        Gui, Add, Text, x12 y409 w80 h20 , Test Status
+        Gui, Add, DropDownList, x102 y409 w110 h20 vTestStatus, Complete||Suspended|Terminated
+        Gui, Add, Text, x12 y439 w80 h20 , Text
+        Gui, Add, DropDownList, x102 y439 w110 h20 , DropDownList
+        Gui, Add, Button, x12 y469 w200 h40 , Add Student
+        Gui, Add, CheckBox, x252 y329 w100 h20 vfirstName, First Name
+        Gui, Add, CheckBox, x252 y349 w100 h20 vlastName, Last Name
+        Gui, Add, CheckBox, x252 y369 w100 h20 vID, Student ID
+        Gui, Add, CheckBox, x252 y389 w100 h20 vDOB, Date of Birth
+        Gui, Add, CheckBox, x252 y409 w100 h20 vgender, Gender
+        Gui, Add, CheckBox, x252 y429 w100 h20 vgrade, Grade
+        Gui, Add, CheckBox, x252 y449 w100 h20 vethnicity, Ethnicity
+        Gui, Add, CheckBox, x252 y469 w100 h20 vschoolofRecord, School of Record
+        Gui, Add, CheckBox, x252 y489 w100 h20 vclass, Class
+        Gui, Tab, Student
+        Gui, Add, GroupBox, x242 y309 w120 h210 , Missing Reporting Attributes
+        Gui, Show, x923 y99 h582 w397, New GUI Window
+      Return
 
 
         ;Compiles all gathered information and creates case notes
-        ButtonComplete:
+        ButtonAddStudent:
           Gui, Submit ;Saves user input
 
           If DOB {
