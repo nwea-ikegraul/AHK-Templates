@@ -12,7 +12,7 @@ ExitFunc(ExitReason, ExitCode)
       ;Variables used in this script
       window := WinExist("A") ;gets the ID for the current active window where the hotstring was triggered
       attribute =
-
+      caseNotes =
       ;GUI
       ;------------------------
 
@@ -33,8 +33,8 @@ ExitFunc(ExitReason, ExitCode)
         Gui, Add, DropDownList, x102 y379 w110 h20 r4 vReport, All||ASG|Student Progress|Student Profile
         Gui, Add, Text, x12 y409 w80 h20 , Test Status
         Gui, Add, DropDownList, x102 y409 w110 h20 vTestStatus, Complete||Suspended|Terminated
-        Gui, Add, Text, x12 y439 w80 h20 , Text
-        Gui, Add, DropDownList, x102 y439 w110 h20 , DropDownList
+        Gui, Add, Text, x12 y439 w80 h20 , Outside of window
+        Gui, Add, DropDownList, x102 y439 w110 h20 , No||Yes
         Gui, Add, Button, x12 y469 w200 h40 , Add Student
         Gui, Add, CheckBox, x252 y329 w100 h20 vfirstName, First Name
         Gui, Add, CheckBox, x252 y349 w100 h20 vlastName, Last Name
@@ -45,7 +45,6 @@ ExitFunc(ExitReason, ExitCode)
         Gui, Add, CheckBox, x252 y449 w100 h20 vethnicity, Ethnicity
         Gui, Add, CheckBox, x252 y469 w100 h20 vschoolofRecord, School of Record
         Gui, Add, CheckBox, x252 y489 w100 h20 vclass, Class
-        Gui, Tab, Student
         Gui, Add, GroupBox, x242 y309 w120 h210 , Missing Reporting Attributes
         Gui, Show, x923 y99 h582 w397, New GUI Window
       Return
@@ -80,8 +79,22 @@ ExitFunc(ExitReason, ExitCode)
           If ID {
             attribute .= "ID `n"
           }
+          If attribute <> ;if reporting attributes are missing
+          {
+            caseNotes.= "Student is missing reporting attributes: `n%attribute%"
+          }
+
+
+
+
+
+
+
+
+
+
           WinActivate, ahk_id %window% ;returns to window where hotstring was triggered
-          Send Student is missing reporting attributes: `n%attribute%
+          Send %caseNotes%
           ExitApp
 
 
