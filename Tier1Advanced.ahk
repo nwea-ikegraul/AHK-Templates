@@ -67,14 +67,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;;StudyIsland Export
 ::#studyIsland::Study Island Export{tab}Partner needs to run a study Island Export.{tab}Issue/Update:{Enter}Partner needs to run a study Island Export.{Enter 2}Steps Taken:{Enter}Walked partner through running a Data Export Scheduler and choosing the Comprehensive Data File.{Enter 2}Define Resolution/Next Steps:{Enter}Advised partner the report usually runs at the top of the hour and they can come back to this page to find the download at the bottom.{end}{tab 3}
 ;::#cStudyIsland::{shift down}{tab}{shift up}{down}{tab 2}{down 2}{tab}
-;;CPS Redirect
-::#CPSCase::in progress
 
-;;One Student Cannot Test
-::#oneStudent::in progress
+;;CPS Redirect
+::#CPSCase::{shift down}{tab 10}{shift up}{down}{tab}{down 2}{tab 2}{down}{tab}{down 7}{tab 2}{down 1}{tab 6}CPS RedirectP{tab}Partner is calling in for support from Chicago Public Schools.{tab}Issue/Update:{enter}Partner is calling in for support from Chicago Public Schools.{enter 2}Advised partner to call the CPS Service Desk for a Service Now ticket #.{enter}The CPS Service Desk number is (773) 553-3925, option 6.{end}{tab 3}
+
+;;One Student Cannot Test - Does not close the case
+::#oneStudent::One Student cannot Test{tab}An individual student consistently has issues testing.{tab}Issue/Update:{enter}An individual student consistently has issues testing.{enter 2}Steps Taken:{enter}Advised partner to:{enter}- Try testing the student on a second or different type of device to ensure the issue isn't device specific.{enter}- Test the student again, and monitor the student for actions such as clicking before the screen has refreshed, leaning on the mouse button, swinging a foot that touches a network cable, etc.{enter}- Remove access to the keyboard completely, and use only a mouse for testing. If testing on a laptop or Chromebook, move the computer further away from the student to ensure they are not touching the keyboard.{enter}- If using a touchpad, use an external mouse for testing. Ensure the students aren't touching the touchpad during this process. With the variety of swipe or multi-touch gestures available on touchpads, inadvertent movements may cause issues.{enter}- Test the student while logged in to a local administrator account on the computer. This is to rule out any permissions issues with the student's account on the computer.{enter}- Have a teacher or proctor record the answers for the student. This person must be very careful not to give any indication to the student of whether an answer is correct or incorrect.{enter 2}Define Resolution/Next Steps:{enter}Partner will try these steps and call back with any further questions.{enter}Additional Notes:{enter}{end}
 
 ;;Temp MAP Skills Outage
-::#skillsOutage::{shift down}{tab 21}{shift up}02090260{tab 11}{down 9}{tab}{down 2}{tab 2}{down 3}{tab}{down 4}{tab 2}{down}{tab 6}MAP Skills Unavaliable{tab}Partner isn't able to see MAP Skills as an option on the MAP home page.{Tab}Issue/Update:{enter}Partner isn't able to see MAP Skills as an option on the MAP home page.{enter 2}Steps Taken:{enter}Advised partner this is an issue we're aware of and engineers are currently investigating.{enter}Verified MAP Skills is enabled for the District, but disabled for all schools.{enter 2}Define Resolution/Next Steps:{enter}Partner can check the status.nwea.org page for updates.{end} {tab 3}
+::#skillsOutage::{shift down}{tab 21}{shift up}02090260{tab 11}{down 9}{tab}{down 2}{tab 2}{down 3}{tab}{down 4}{tab 2}{down}{tab 6}MAP Skills Unavaliable{tab}Partner isn't able to see MAP Skills as an option on the MAP home page.{Tab}Issue/Update:{enter}Partner isn't able to see MAP Skills as an option on the MAP home page.{enter 2}Steps Taken:{enter}Advised partner this is an issue we're aware of and engineers are currently investigating.{enter}Verified MAP Skills is enabled for the District, but disabled for all schools.{enter 2}Define Resolution/Next Steps:{enter}Partner can check the status.nwea.org page for updates.
 
 ; HOT STRINGS
 ::acct::account
@@ -142,6 +143,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ::ref::referred
 
 ::remse::Initiated remote session
+
+::sac::School Assessment Coordinator
 
 ::sis::student information system
 
