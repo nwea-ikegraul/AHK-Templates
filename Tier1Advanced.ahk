@@ -191,3 +191,30 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;;Temp Outage - Can edit and change for each Outage. Include Parent Case Number
 ;::#Outage::{shift down}{tab 21}{shift up}02090260{tab 11}{down 9}{tab}{down 2}{tab 2}{down 3}{tab}{down 4}{tab 2}{down}{tab 6}MAP Skills Unavaliable{tab}Partner isn't able to see MAP Skills as an option on the MAP home page.{Tab}Issue/Update:{enter}Partner isn't able to see MAP Skills as an option on the MAP home page.{enter 2}Steps Taken:{enter}Advised partner this is an issue we're aware of and engineers are currently investigating.{enter}Verified MAP Skills is enabled for the District, but disabled for all schools.{enter 2}Define Resolution/Next Steps:{enter}Partner can check the status.nwea.org page for updates.
+
+
+;;can change name if needed.
+::#helpme::
+{
+if WinExist("List of Hotstrings")
+  WinActivate
+Else
+{
+Gui, New
+Gui, Font, s12, Times New Roman
+Gui, Add, Text, x241 y9, Hotstrings
+Gui, Add, Text, x11, *Enter one of the following in the subject line, making sure the Product Suite is --None--*
+Gui, Add, Text, x15, #pass `r`n#passNoPro `r`n#passEmail `r`n#testMissingConfirmed `r`n#testMissingTesting `r`n#testMissingSuspended `r`n#testMissingTerminated `r`n#practice `r`n#reportStuckSubmitted `r`n#chromebookError `r`n#oneStudent `r`n#dekalbIT
+Gui, Add, Button, x241 y300, Close
+Gui, Show, x152 y125 w565 h350, List of Hotstrings
+Return
+}
+ButtonClose:
+GuiClose:
+    Gui, Hide
+    Return
+
+;closes the app
+;GuiClose:
+;ExitApp
+}
