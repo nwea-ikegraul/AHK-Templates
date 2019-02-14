@@ -205,8 +205,8 @@ Gui, Font, s12, Times New Roman
 Gui, Add, Text, x241 y9, Hotstrings
 Gui, Add, Text, x11, *Enter one of the following in the subject line, making sure the Product Suite is --None--*
 Gui, Add, Text, x15, #pass `r`n#passNoPro `r`n#passEmail `r`n#testMissingConfirmed `r`n#testMissingTesting `r`n#testMissingSuspended `r`n#testMissingTerminated `r`n#practiceTest `r`n#reportStuckSubmitted `r`n#chromebookError `r`n#oneStudent `r`n#dekalbIT `r`n#cpsCase `r`n#reportStuckSubmitted `r`n#studyIsland
-Gui, Add, Button, x241 y300, Close
-Gui, Show, x152 y125 w565 h350, List of Hotstrings
+Gui, Add, Button, x241 y350, Close
+Gui, Show, x152 y125 w565 h400, List of Hotstrings
 Return
 }
 ButtonClose:
