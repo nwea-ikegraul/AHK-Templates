@@ -4,19 +4,18 @@ SetTitleMatchMode, 2
 ;add k-2 test reward screen click next
 ::#reportmissing:: ;Hotstring to start students missing from reports template
 
-
+;TODO__________________
+;Add resolution notes and logic
 
 
   {
 
-      ;Variables_____________________________________________________________
+      SetTitleMatchMode, 1
 
+      ;Variables_____________________________________________________________
       attribute =
       caseNotes =
-      subject := "Student missing from reports"
-      description := "Partner has students missing from reports"
       steps =
-      SetTitleMatchMode, 1
       id := WinExist("A")
       WinGetActiveTitle, Title
       tabFound :=
@@ -52,13 +51,16 @@ SetTitleMatchMode, 2
         Gui, Add, DropDownList, x102 y469 w110 h10 r4 vstate, No||AR|NE|NV
         Gui, Add, CheckBox, x252 y539 w110 h30 vmanageStudents, Partner can manage students
         Gui, Show, x846 y101 h649 w398, New GUI Window
+        GuiControl, Disable, Submit
       Return
 
       GuiClose:
       ExitApp
+
 ;Buttons_____________________________________________________________________________________
-        ;Compiles all gathered information and creates case notes
+
         ButtonAddStudent:
+          GuiControl, Enable, Submit
           Gui, Submit, NoHide ;Saves user input
           steps .= "Student:"
           steps .= StudentName
@@ -134,12 +136,12 @@ SetTitleMatchMode, 2
 
 
 
-        ButtonSubmit:
+        ButtonSubmit: ;Compiles all gathered information and creates case notes
             Gui, Submit, NoHide ;Saves user input
-            caseNotes .= steps
-            WinActivate, ahk_id %id%
-            WinGetActiveTitle, StartingTitle
-            loop{
+            caseNotes .= steps ;adds content in steps var to case notes
+            WinActivate, ahk_id %id% ;returns focus to browser
+            WinGetActiveTitle, StartingTitle ;used to auto exit if tab not found
+            loop{ ;loops over all open tabs to find starting tab
                   send {Control down}{PgUp}{Control Up}
                   Sleep 100
                   WinGetActiveTitle, CurrentTitle
@@ -148,6 +150,8 @@ SetTitleMatchMode, 2
                       }
 
                   }
+
+            ;set dropdowns and case notes
             If state = no
             Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}n/a{tab 6}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
 
