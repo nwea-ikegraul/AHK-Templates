@@ -22,24 +22,22 @@ SetTitleMatchMode, 2
       tabFound :=
 
       ;GUI________________________________________________________________
-      ;!!!!!!!!!!ADD STATE CONTRACT!!!!!!!!!!!!!!!!!
 
         Gui, Add, Text, x2 y-1 w390 h30 , Missing from Reports
-        Gui, Add, Edit, x2 y29 w390 h210 vcaseNotes, %caseNotes%
-        GuiControl,, caseNotes, Partner has students missing from reports.`n-----------------------`n`n
-        Gui, Add, Button, x2 y529 w390 h50 , Submit
+        Gui, Add, Edit, x2 y29 w380 h240 vcaseNotes, %caseNotes%
+        Gui, Add, Button, x2 y579 w390 h60 , Submit
         Gui, Add, Text, x102 y279 w160 h30 +Center, Student missing from reports
         Gui, Add, Text, x12 y319 w80 h20 , Student Name
-        Gui, Add, Edit, x102 y319 w110 h20 vStudentName
+        Gui, Add, Edit, x102 y319 w110 h20 vStudentName,
         Gui, Add, Text, x12 y349 w80 h20 , Test Name
-        Gui, Add, Edit, x102 y349 w110 h20 vTestName
+        Gui, Add, Edit, x102 y349 w110 h20 vTestName,
         Gui, Add, Text, x12 y379 w80 h20 , Report
         Gui, Add, DropDownList, x102 y379 w110 h20 r4 vReport, All||ASG|Student Progress|Student Profile
         Gui, Add, Text, x12 y409 w80 h20 , Test Status
         Gui, Add, DropDownList, x102 y409 w110 h20 r4 vTestStatus, Complete||Suspended|Suspended 28 days+|Terminated
         Gui, Add, Text, x12 y439 w80 h30 , Outside of window
         Gui, Add, DropDownList, x102 y439 w110 h20 r2 vTestWindow, No||Yes
-        Gui, Add, Button, x12 y469 w200 h40 , Add Student
+        Gui, Add, Button, x2 y529 w210 h50 , Add Student
         Gui, Add, CheckBox, x252 y329 w100 h20 vfirstName, First Name
         Gui, Add, CheckBox, x252 y349 w100 h20 vlastName, Last Name
         Gui, Add, CheckBox, x252 y369 w100 h20 vstudentID, Student ID
@@ -50,9 +48,14 @@ SetTitleMatchMode, 2
         Gui, Add, CheckBox, x252 y469 w100 h20 vschoolofRecord, School of Record
         Gui, Add, CheckBox, x252 y489 w100 h20 vstudentClass, Class
         Gui, Add, GroupBox, x242 y309 w120 h210 , Missing Reporting Attributes
-        Gui, Show, x923 y99 h582 w397, New GUI Window
+        Gui, Add, Text, x12 y469 w80 h20 , State contract
+        Gui, Add, DropDownList, x102 y469 w110 h10 r4 vstate, No||AR|NE|NV
+        Gui, Add, CheckBox, x252 y539 w110 h30 vmanageStudents, Partner can manage students
+        Gui, Show, x846 y101 h649 w398, New GUI Window
       Return
 
+      GuiClose:
+      ExitApp
 ;Buttons_____________________________________________________________________________________
         ;Compiles all gathered information and creates case notes
         ButtonAddStudent:
@@ -108,6 +111,12 @@ SetTitleMatchMode, 2
           If attribute <> ;if reporting attributes are missing
           {
             steps.= "Student is missing reporting attributes: `n" attribute
+            If manageStudents {
+              steps .= "Can manage students"
+            } Else {
+              steps .= "Can't manage students"
+
+            }
           }
 
           If TestWindow = "Yes"
@@ -139,7 +148,18 @@ SetTitleMatchMode, 2
                       }
 
                   }
+            If state = no
             Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}n/a{tab 6}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+
+            If state = AR
+            Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ar{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+
+            If state = NE
+            Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ne{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+
+            If state = NV
+            Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}nv{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+
 
             ExitApp
 }
