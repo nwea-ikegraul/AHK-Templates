@@ -5,7 +5,7 @@ SetTitleMatchMode, 2
 ::#reportmissing:: ;Hotstring to start students missing from reports template
 
 ;TODO__________________
-;Add resolution notes and logic
+;Reset product and reason for contact to --none--
 
 
   {
@@ -14,7 +14,7 @@ SetTitleMatchMode, 2
 
       ;Variables_____________________________________________________________
       attribute =
-      caseNotes =
+      caseNotes = Issue/Update:`nPartner has students missing from reports.`n`nSteps Taken:`n
       steps =
       id := WinExist("A")
       WinGetActiveTitle, Title
@@ -33,7 +33,7 @@ SetTitleMatchMode, 2
         Gui, Add, Text, x12 y379 w80 h20 , Report
         Gui, Add, DropDownList, x102 y379 w110 h20 r4 vReport, All||ASG|Student Progress|Student Profile
         Gui, Add, Text, x12 y409 w80 h20 , Test Status
-        Gui, Add, DropDownList, x102 y409 w110 h20 r4 vTestStatus, Complete||Suspended|Suspended 28 days+|Terminated
+        Gui, Add, DropDownList, x102 y409 w110 h20 r5 vTestStatus, Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen
         Gui, Add, Text, x12 y439 w80 h30 , Outside of window
         Gui, Add, DropDownList, x102 y439 w110 h20 r2 vTestWindow, No||Yes
         Gui, Add, Button, x2 y529 w210 h50 , Add Student
@@ -49,7 +49,6 @@ SetTitleMatchMode, 2
         Gui, Add, GroupBox, x242 y309 w120 h210 , Missing Reporting Attributes
         Gui, Add, Text, x12 y469 w80 h20 , State contract
         Gui, Add, DropDownList, x102 y469 w110 h10 r4 vstate, No||AR|NE|NV
-        Gui, Add, CheckBox, x252 y539 w110 h30 vmanageStudents, Partner can manage students
         Gui, Show, x846 y101 h649 w398, New GUI Window
         GuiControl, Disable, Submit
       Return
@@ -102,33 +101,57 @@ SetTitleMatchMode, 2
 
           If TestStatus = Suspended
           {
-            steps.= "The test is suspended.`n"
+            steps.= "The test is suspended.`nPartner will have student finish test and view reports after an overnight update.`n`n"
           }
 
           If TestStatus = Terminated
           {
-            steps.= "The test is Terminated.`n"
+            steps.= "The test is Terminated.`nPartner will have student test again and view reports after an overnight update.`n`n"
+          }
+
+          If TestStatus = Suspended 28 days+
+          {
+            steps.= "The test is Terminated due to being suspended for more than 28 days.`nPartner will have student test again and view reports after an overnight update.`n`n"
+          }
+
+          If TestStatus = K-2 Test on reward screen
+          {
+            steps.= "The test is complete but the student didn't click next on the reward screen. Partner will start the test and click next and view reports after an overnight update.`n`n"
           }
 
           If attribute <> ;if reporting attributes are missing
           {
-            steps.= "Student is missing reporting attributes: `n" attribute
-            If manageStudents {
-              steps .= "Can manage students"
-            } Else {
-              steps .= "Can't manage students"
-
-            }
+            steps.= "Student is missing the following reporting attributes:`n" attribute "`n"
+            MsgBox, 4,, Can partner manage students?
+            IfMsgBox Yes
+              steps .= "Partner will add the attributes and view reports after an overnight update.`n`n"
+            else
+              steps .= "Partner will work with their Data Administrator, District Assessment Coordinator, or System Administrator to add the reporting attributes and view reports after an overnight update.`n`n"
           }
 
-          If TestWindow = "Yes"
+          If TestWindow = Yes
           {
-            steps.= "Test was taken outside the window."
-          }
-          MsgBox, %attribute%
+          MsgBox, 4,, Can partner modify preferences?
+          IfMsgBox Yes
+            steps .= "Partner will adjust the test window and view reports after an overnight update.`n`n"
+          else
+            steps .= "Partner will work with their District Assessment Coordinator or System Administrator to change the test window dates to include any test events.`n`n"
+        }
+
           caseNotes .= steps
-          steps = `n
+          steps = `n`n
           attribute =
+          StudentName =
+          TestName =
+          DOB =
+          studentGender =
+          studentID =""
+          studentGrade =
+          studentClass =
+          studentEthnicity =
+          firstName =
+          lastName =
+          TestStatus = Complete
           GuiControl,, caseNotes, %caseNotes%
           return
 
@@ -137,6 +160,7 @@ SetTitleMatchMode, 2
 
 
         ButtonSubmit: ;Compiles all gathered information and creates case notes
+            BlockInput On
             Gui, Submit, NoHide ;Saves user input
             caseNotes .= steps ;adds content in steps var to case notes
             WinActivate, ahk_id %id% ;returns focus to browser
