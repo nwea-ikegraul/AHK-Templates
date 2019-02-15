@@ -1,32 +1,34 @@
 #NoEnv
 SendMode Input
-OnExit("ExitFunc")
-ExitFunc(ExitReason, ExitCode)
-    {
-      Run missingReports.ahk
-    }
-
+SetTitleMatchMode, 2
+;add k-2 test reward screen click next
 ::#reportmissing:: ;Hotstring to start students missing from reports template
+
+
+
+
   {
 
-      ;Variables used in this script
-      window := WinExist("A") ;gets the ID for the current active window where the hotstring was triggered
+      ;Variables_____________________________________________________________
+
       attribute =
       caseNotes =
       subject := "Student missing from reports"
       description := "Partner has students missing from reports"
-      ;GUI
-      ;------------------------
+      steps =
+      SetTitleMatchMode, 1
+      id := WinExist("A")
+      WinGetActiveTitle, Title
+      tabFound :=
+
+      ;GUI________________________________________________________________
+      ;!!!!!!!!!!ADD STATE CONTRACT!!!!!!!!!!!!!!!!!
 
         Gui, Add, Text, x2 y-1 w390 h30 , Missing from Reports
         Gui, Add, Edit, x2 y29 w390 h210 vcaseNotes, %caseNotes%
+        GuiControl,, caseNotes, Partner has students missing from reports.`n-----------------------`n`n
         Gui, Add, Button, x2 y529 w390 h50 , Submit
-        Gui, Add, Tab, x2 y239 w390 h290 , Student|Class
-        Gui, Tab, Student
         Gui, Add, Text, x102 y279 w160 h30 +Center, Student missing from reports
-        Gui, Tab, Class
-        Gui, Add, Text, x102 y279 w170 h30 +Center, Class missing from reports
-        Gui, Tab, Student
         Gui, Add, Text, x12 y319 w80 h20 , Student Name
         Gui, Add, Edit, x102 y319 w110 h20 vStudentName
         Gui, Add, Text, x12 y349 w80 h20 , Test Name
@@ -51,19 +53,22 @@ ExitFunc(ExitReason, ExitCode)
         Gui, Show, x923 y99 h582 w397, New GUI Window
       Return
 
-
+;Buttons_____________________________________________________________________________________
         ;Compiles all gathered information and creates case notes
         ButtonAddStudent:
           Gui, Submit, NoHide ;Saves user input
-          caseNotes .= "Partner has students missing from reports.`n`n-------------------------------------------------`n`nStudent: "
-          ,StudentName  "`nTest: " TestName "`n"
+          steps .= "Student:"
+          steps .= StudentName
+          steps .="`nTest: "
+          steps .= TestName
+          steps .="`n"
 
           ;Complie attribues for case notes
           If DOB {
-            attribute .= Date of birth
+            attribute .= "Date of birth`n"
           }
           If studentGender{
-            attribute .= Gender
+            attribute .= "Gender`n"
           }
 
           If studentEthnicity{
@@ -82,31 +87,37 @@ ExitFunc(ExitReason, ExitCode)
             attribute .= "Last Name`n"
           }
           If studentID {
-            attribute .= "ID"
+            attribute .= "ID`n"
+          }
+          If studentGrade {
+            attribute .= "Grade`n"
           }
 
           ;Add reasons for test missing on reports to the case notes
 
           If TestStatus = Suspended
           {
-            caseNotes.= "The test is suspended.`n"
+            steps.= "The test is suspended.`n"
           }
 
           If TestStatus = Terminated
           {
-            caseNotes.= "The test is Terminated.`n"
+            steps.= "The test is Terminated.`n"
           }
 
           If attribute <> ;if reporting attributes are missing
           {
-            caseNotes.= "Student is missing reporting attributes: `n" attribute
+            steps.= "Student is missing reporting attributes: `n" attribute
           }
 
           If TestWindow = "Yes"
           {
-            caseNotes.= "Test was taken outside the window."
+            steps.= "Test was taken outside the window."
           }
-
+          MsgBox, %attribute%
+          caseNotes .= steps
+          steps = `n
+          attribute =
           GuiControl,, caseNotes, %caseNotes%
           return
 
@@ -114,14 +125,21 @@ ExitFunc(ExitReason, ExitCode)
 
 
 
-
-
-
         ButtonSubmit:
+            Gui, Submit, NoHide ;Saves user input
+            caseNotes .= steps
+            WinActivate, ahk_id %id%
+            WinGetActiveTitle, StartingTitle
+            loop{
+                  send {Control down}{PgUp}{Control Up}
+                  Sleep 100
+                  WinGetActiveTitle, CurrentTitle
+                  If (Title = CurrentTitle) {
+                      break
+                      }
 
-          WinActivate, ahk_id %window% ;returns to window where hotstring was triggered
-          while 
+                  }
+            Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}n/a{tab 6}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
 
-
-
-  }
+            ExitApp
+}
