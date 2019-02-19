@@ -192,83 +192,24 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;;Temp Outage - Can edit and change for each Outage. Include Parent Case Number
 ;::#Outage::{shift down}{tab 21}{shift up}02090260{tab 11}{down 9}{tab}{down 2}{tab 2}{down 3}{tab}{down 4}{tab 2}{down}{tab 6}MAP Skills Unavaliable{tab}Partner isn't able to see MAP Skills as an option on the MAP home page.{Tab}Issue/Update:{enter}Partner isn't able to see MAP Skills as an option on the MAP home page.{enter 2}Steps Taken:{enter}Advised partner this is an issue we're aware of and engineers are currently investigating.{enter}Verified MAP Skills is enabled for the District, but disabled for all schools.{enter 2}Define Resolution/Next Steps:{enter}Partner can check the status.nwea.org page for updates.
 
+;;Call the Rostering Script
+::#roster::
+{
+  Run, RosterTesting.ahk
+  Return
+}
 
-;;can change name if needed.
-;::#helpme::
-;{
-;  if WinExist("List of Hotstrings")
-;    WinActivate
-;  Else
-;  {
-;    Gui, New
-;    Gui, Font, s12, Times New Roman
-;    Gui, Add, Text, x241 y9, Hotstrings
-;    Gui, Add, Text, x11, **Enter one of the following in the subject line, making sure the Product Suite is --None--**
-;    Gui, Add, Text, x15, #pass - Successfully walked partner through recovering password.
-;    Gui, Add, Text, x15, #passNoPro - Partner has no profile in NWEA.
-;    Gui, Add, Text, x15, #passEmail - Partner's email is incorrect.
-;    Gui, Add, Text, x15, #testMissingConfirmed - Student name is missing from test drop down list - Status Confirmed
-;    Gui, Add, Text, x15, #testMissingTesting - Student name is missing from test drop down list - Status Testing
-;    Gui, Add, Text, x15, #testMissingSuspended - Student name is missing from test drop down list - Status Suspended
-;    Gui, Add, Text, x15, #testMissingTerminated - Student name is missing from test drop down list - Status Terminated
-;    Gui, Add, Text, x15, #practiceTest - Practice Test Login Information
-;    Gui, Add, Text, x15, #reportStuckSubmitted - Long Report Times
-;    Gui, Add, Text, x15, #chromebookError - Chromebook Screen Resolution Error on Login
-;    Gui, Add, Text, x15, #oneStudent - One Student Cannot Test
-;    Gui, Add, Text, x15, #dekalbIT - Dekalb IT Wrong Number
-;    Gui, Add, Text, x15, #cpsCase - CPS Redirect
-;    Gui, Add, Text, x15, #studyIsland - Study Island export help
-;    Gui, Add, Button, x241 y475, Close
-;    Gui, Show, x152 y125 w600 h525, List of Hotstrings
-;    Return
-;  }
-;  ButtonClose:
-;  GuiClose:
-;      Gui, Hide
-;      Return
-;
-;  ;closes the app
-;  ;GuiClose:
-;  ;ExitApp
-;}
+;;A student or students are missing on reports
+;;MAKE SURE TO CHANGE BACK TO 'Run, missingReports.ahk'
+::#reportsMissing::
+{
+  Run, C:\Users\Caleb.Phillips\Northwest Evaluation Association\Justin Latham-Light - AHK Files\missingReports.ahk
+  Return
+}
 
+;;Help page with all scripts showing
 ::#help::
 {
-  if WinExist("List of Hotstrings")
-    WinActivate
-  Else
-  {
-    Gui, New
-    Gui, Font, s12, Times New Roman
-    Gui, Add, Text, x11, **Enter one of the following commands in the subject line, making sure the Product Suite is --None--**
-    Gui, Add, ListView, r15 w700 NoSortHdr NoSort Grid -Multi, Command|Main KA|Result
-    GuiControl, +Report, ListView
-    LV_ModifyCol(1,155)
-    LV_ModifyCol(2,70)
-    LV_ModifyCol(2,"center")
-    LV_ModifyCol(3,470)
-    LV_Add(,"#pass", "1630", "Successfully walked partner through recovering password")
-    LV_Add(,"#passNoPro", "1630", "Partner has no profile in NWEA")
-    LV_Add(,"#passEmail", "1630", "Partner's email is incorrect")
-    LV_Add(,"#testMissingConfirmed", "2249", "Student name is missing from test drop down list - Status Confirmed")
-    LV_Add(,"#testMissingTesting", "2249", "Student name is missing from test drop down list - Status Testing")
-    LV_Add(,"#testMissingSuspended", "2249", "Student name is missing from test drop down list - Status Suspended")
-    LV_Add(,"#testMissingTerminated", "2249", "Student name is missing from test drop down list - Status Terminated")
-    LV_Add(,"#practiceTest", "1090", "Practice Test Login Information")
-    LV_Add(,"#reportStuckSubmitted", "3185", "Long Report Times and Reports are stuck in Submitted")
-    LV_Add(,"#oneStudent", "2751", "Steps to take when one student cannot test")
-    LV_Add(,"#chromebookError", "2444", "Chromebook Screen Resolution Error on Login")
-    LV_Add(,"#dekalbIT","", "Dekalb IT Wrong Number")
-    LV_Add(,"#cpsCase", "1298", "CPS Redirect")
-    LV_Add(,"#studyIsland", "1403", "Study Island export help")
-
-    Gui, Add, Button, x307 y425, Close
-    Gui, Show, x152 y125 h475, List of Hotstrings
-    Return
-  }
-  ButtonClose:
-  GuiClose:
-    Gui, Hide
-    Return
-
+  Run, helpMe.ahk
+  Return
 }
