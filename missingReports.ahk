@@ -10,7 +10,7 @@ SetTitleMatchMode, 1
 
 ;Variables_____________________________________________________________
 attribute =
-caseNotes = Issue/Update:`nPartner has students missing from reports.`n`nSteps Taken:`n
+caseNotes = Partner is missing results from reports.`n`n
 steps =
 id := WinExist("A")
 WinGetActiveTitle, Title
@@ -61,37 +61,37 @@ ExitApp
   ButtonAddStudent:
     GuiControl, Enable, Submit
     Gui, Submit, NoHide ;Saves user input
-    steps .= "Student: " StudentName "`nTest: " TestName "`nReport: " Report "`n"
+    steps .= "Student: " StudentName "`nTest: " TestName "`nReport: " Report "`nCause: "
 
 
     ;Complie attributes for case notes
     If DOB {
-      attribute .= "Date of birth`n"
+      attribute .= "-Date of birth`n"
     }
     If studentGender{
-      attribute .= "Gender`n"
+      attribute .= "-Gender`n"
     }
 
     If studentEthnicity{
-      attribute .= "Ethnicity`n"
+      attribute .= "-Ethnicity`n"
     }
     If studentClass{
-      attribute .= "Class`n"
+      attribute .= "-Class`n"
     }
     If schoolofRecord {
-      attribute .= "School of Record`n"
+      attribute .= "-School of Record`n"
     }
     If firstName {
-      attribute .= "First Name`n"
+      attribute .= "-First Name`n"
     }
     If lastName {
-      attribute .= "Last Name`n"
+      attribute .= "-Last Name`n"
     }
     If studentID {
-      attribute .= "ID`n"
+      attribute .= "-ID`n"
     }
     If studentGrade {
-      attribute .= "Grade`n"
+      attribute .= "-Grade`n"
     }
 
     ;Add reasons for test missing on reports to the case notes
@@ -113,7 +113,7 @@ ExitApp
 
     If TestStatus = K-2 Test on reward screen
     {
-      steps.= "The test is complete but the student didn't click next on the reward screen. Partner will start the test and click next.`n`n"
+      steps.= "The test is complete but the student didn't click next on the reward screen. Partner will start the test, click next and check reports after the overnight update.`n`n"
     }
     If TestStatus = Didn't test
     {
@@ -125,22 +125,22 @@ ExitApp
       steps.= "Student is missing the following reporting attributes:`n" attribute "`n"
       MsgBox, 4,, Can partner manage students?
       IfMsgBox Yes
-        steps .= "Partner will add the attributes and view reports after an overnight update.`n`n"
+        steps .= "Partner will add the attributes in manage students and check reports after the overnight update.`n`n"
       else
-        steps .= "Partner will work with their Data Administrator, District Assessment Coordinator, or System Administrator to add the reporting attributes.`n`n"
+        steps .= "Partner will work with their Data Administrator, District Assessment Coordinator, or System Administrator to add the reporting attributes. Partner will check reports after the overnight update.`n`n"
     }
 
     If TestWindow = Yes
     {
     MsgBox, 4,, Can partner modify preferences?
     IfMsgBox Yes
-      steps .= "Partner will adjust the test window.`n"
+      steps .= "Partner will adjust the test window and check reports after the overnight update.`n"
     else
-      steps .= "Partner will work with their District Assessment Coordinator or System Administrator to change the test window dates to include any test events.`n`n"
+      steps .= "Partner will work with their District Assessment Coordinator or System Administrator to change the test window dates to include any test events. Partner will check reports after the overnight update.`n`n"
   }
     If etl = Yes
     {
-      steps .= "Student took the test today.`n"
+      steps .= "Student took the test today. Partner will check reports after the overnight update.`n"
     }
 
     If transfer {
@@ -151,7 +151,7 @@ ExitApp
 
     ;add steps to case notes then clear the GUI
 
-    steps .= "Advised reports will take an overnight update."
+
     caseNotes .= steps
     steps = `n`n
     attribute =
@@ -196,13 +196,13 @@ ExitApp
       Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}n/a{tab 6}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
 
       If state = AR
-      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ar{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ar{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports.{tab}%caseNotes%{End}
 
       If state = NE
-      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ne{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}ne{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports.{tab}%caseNotes%{End}
 
       If state = NV
-      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}nv{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports{tab}%caseNotes%{End}
+      Send {shift down}{tab 10}{shift up}map g{tab}view reports{tab 2}error{tab}locate{tab 2}nv{tab 2}solved by u{tab}{enter}{tab 3}Student Missing from Reports{tab}Partner has students missing from reports.{tab}%caseNotes%{End}
 
 
       ExitApp
