@@ -166,9 +166,9 @@ ExitApp
     GuiControl,,firstName,0
     GuiControl,,lastName,0
     GuiControl,,schoolofRecord,0
-    GuiControl,,TestWindow,No||Yes
-    GuiControl,,Report,All||ASG|Student Progress|Student Profile
-    GuiControl,,TestStatus, Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen
+    GuiControl,,TestWindow,|No||Yes
+    GuiControl,,Report,|All||ASG|Student Progress|Student Profile
+    GuiControl,,TestStatus, |Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen
     GuiControl,, caseNotes, %caseNotes%
     return
 
