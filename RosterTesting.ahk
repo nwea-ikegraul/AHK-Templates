@@ -32,7 +32,6 @@ SetTitleMatchMode, 1
     Gui, Add, Radio, vMyRadio Group Checked, File Format Error
     Gui, Add, Radio, , File Data Error
     Gui, Add, Radio, , Reconcilable Error
-    Gui, Add, text, , %A_Username%
     Gui, Show, , Roster Errors
     Return
 
@@ -97,6 +96,22 @@ SetTitleMatchMode, 1
                 break
               }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

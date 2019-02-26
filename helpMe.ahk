@@ -9,7 +9,7 @@ Else
   Gui, New
   Gui, Font, s12, Times New Roman
   Gui, Add, Text, x11, **Enter one of the following commands in the subject line, making sure the Product Suite is --None--**
-  Gui, Add, ListView, r15 w700 NoSortHdr NoSort Grid -Multi, Command|Main KA|Result
+  Gui, Add, ListView, r15 w700 NoSortHdr NoSort Grid -Multi -0x8 -LV0x20, Command|Main KA|Result
   GuiControl, +Report, ListView
   LV_ModifyCol(1,155)
   LV_ModifyCol(2,70)
@@ -37,5 +37,4 @@ Else
 }
 ButtonClose:
 GuiClose:
-  Gui, Hide
-  Return
+  ExitApp
