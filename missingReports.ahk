@@ -27,7 +27,7 @@ WinGetActiveTitle, Title
   Gui, Add, Text, x12 y379 w80 h20 , Report
   Gui, Add, DropDownList, x102 y379 w110 h20 r7 vReport, All||ASG|Class|Class Breakdown|District Summary|Grade|Grade Breakdown|Learning Continuum|Projected Proficiency Summary|Student Goal Setting Worksheet|Student Growth Summary|Student Progress|Student Profile|Screening and Skills Checklist
   Gui, Add, Text, x12 y409 w80 h20 , Test Status
-  Gui, Add, DropDownList, x102 y409 w110 h20 r6 vTestStatus, Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen|Didn't test
+  Gui, Add, DropDownList, x102 y409 w110 h20 r10 vTestStatus, |Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen|Didn't test|Invalid - Duration|Invalid - RIT|Invalid - SEM|Invalid - Rapid Guess
   Gui, Add, Text, x12 y439 w80 h30 , Outside of window
   Gui, Add, DropDownList, x102 y439 w110 h20 r2 vTestWindow, No||Yes
   Gui, Add, Button, x2 y550 w390 h60 , Add Student
@@ -117,12 +117,30 @@ ExitApp
     }
     If TestStatus = Didn't test
     {
-      steps.= "Student didn't take the test. Partner will have the student take the test.`n"
+      steps.= "Student didn't take the test. Partner will have the student take the test.`n`n"
+    }
+    If TestStatus = Invalid - Duration
+    {
+      steps.= "The test is invalid due to minimum duration not being met. Student will need to test again to get a valid score.`n`n"
+    }
+    If TestStatus = Invalid - RIT
+    {
+      steps.= "The test is invalid because the RIT is out of range. Student will need to test again to get a valid score.`n`n"
+    }
+
+    If TestStatus = Invalid - SEM
+    {
+      steps.= "The test is invalid because the SEM is too high. Student will need to test again to get a valid score.`n`n"
+    }
+
+    If TestStatus = Invalid - Rapid Guess
+    {
+      steps.= "The test is invalid because there was a high level of rapid guessing. Student will need to test again to get a valid score.`n`n"
     }
 
     If attribute <> ;if reporting attributes are missing
     {
-      steps.= "Student is missing the following reporting attributes:`n" attribute "`n"
+      steps.= "Student is missing the following reporting attributes:`n" attribute "`n`n"
       MsgBox, 4,, Can partner manage students?
       IfMsgBox Yes
         steps .= "Partner will add the attributes in manage students and check reports after the overnight update.`n`n"
@@ -134,13 +152,13 @@ ExitApp
     {
     MsgBox, 4,, Can partner modify preferences?
     IfMsgBox Yes
-      steps .= "Partner will adjust the test window and check reports after the overnight update.`n"
+      steps .= "Partner will adjust the test window and check reports after the overnight update.`n`n"
     else
       steps .= "Partner will work with their District Assessment Coordinator or System Administrator to change the test window dates to include any test events. Partner will check reports after the overnight update.`n`n"
   }
     If etl = Yes
     {
-      steps .= "Student took the test today. Partner will check reports after the overnight update.`n"
+      steps .= "Student took the test today. Partner will check reports after the overnight update.`n`n"
     }
 
     If transfer {
@@ -168,7 +186,7 @@ ExitApp
     GuiControl,,schoolofRecord,0
     GuiControl,,TestWindow,|No||Yes
     GuiControl,,Report,|All||ASG|Class|Class Breakdown|District Summary|Grade|Grade Breakdown|Learning Continuum|Projected Proficiency Summary|Student Goal Setting Worksheet|Student Growth Summary|Student Progress|Student Profile|Screening and Skills Checklist
-    GuiControl,,TestStatus, |Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen|Didn't test
+    GuiControl,,TestStatus, |Complete||Suspended|Suspended 28 days+|Terminated|K-2 Test on reward screen|Didn't test|Invalid - Duration|Invalid - RIT|Invalid - SEM|Invalid - Rapid Guess
     GuiControl,, caseNotes, %caseNotes%
     return
 
