@@ -14,7 +14,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; Custom Scripts
 
 
-
 ; PARENT CASES (Updated 11/2/2018)
 ::#interventionist::2081972
 ::#noresources::2085015
@@ -33,7 +32,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ::adv::advised
 
-::asg::Achievement Status and Growth Report
+::asg::Achievement Status and Growth report
 
 ::acoord::assessment coordinator
 
@@ -43,7 +42,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ::dac::District Assessment Coordinator
 
-::dadmin::data administrator
+::dadmin::Data Administrator
 
 ::drr::data repair request
 
