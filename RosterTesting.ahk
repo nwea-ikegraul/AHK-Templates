@@ -94,7 +94,7 @@ SetTitleMatchMode, 1
     Gui, 4: Add, CheckBox, x17 y39 w190 h20 vSchool, School Errors (KA 1759)
     Gui, 4: Add, CheckBox, x17 y69 w190 h20 vEthnic, Ethnic Group Errors	 (KA 1757)
     Gui, 4: Add, CheckBox, x17 y99 w190 h20 vGrade, Grade Errors (KA 2296)
-    Gui, 4: Add, CheckBox, x17 y129 w190 h20 vProgram, Program Errors (KA none *YET*)
+    Gui, 4: Add, CheckBox, x17 y129 w190 h20 vProgram, Program Errors (KA 3764)
     Gui, 4: Add, CheckBox, x252 y39 w190 h20 vInstructor, Instructor Errors (KA 2286)
     Gui, 4: Add, CheckBox, x252 y69 w190 h20 vStudent, Student Errors (KA 2286)
     Gui, 4: Add, CheckBox, x252 y129 w190 h20 vNoRec, No errors in this step
@@ -271,12 +271,12 @@ GuiClose:
             Sleep 100
           }
         If state = no
-          Send {shift down}{tab 10}{shift up}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}n/a{tab 6}%subject%{tab}%issue%{tab}%caseNotes%{End}
+          Send ^f{sleep 250}product suite{esc}{sleep 250}{tab}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}n/a{tab 6}%subject%{tab}%issue%{tab}%caseNotes%{Enter 2}{U+02cc}{End}
         If state = AR
-          Send {shift down}{tab 10}{shift up}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}ar{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{End}
+          Send ^f{sleep 250}product suite{esc}{sleep 250}{tab}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}ar{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{Enter 2}{U+02cc}{End}
         If state = NE
-          Send {shift down}{tab 10}{shift up}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}ne{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{End}
+          Send ^f{sleep 250}product suite{esc}{sleep 250}{tab}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}ne{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{Enter 2}{U+02cc}{End}
         If state = NV
-          Send {shift down}{tab 10}{shift up}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}nv{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{End}
+          Send ^f{sleep 250}product suite{esc}{sleep 250}{tab}map g{tab}import profile{tab 2}error{tab}%subCategory%{tab 2}nv{tab 2}solved by u{tab}{enter}{tab 3}%subject%{tab}%issue%{tab}%caseNotes%{Enter 2}{U+02cc}{End}
         ExitApp
     }

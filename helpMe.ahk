@@ -1,12 +1,11 @@
 #NoEnv
 SendMode Input
-SetTitleMatchMode, 1
+SetWorkingDir %A_ScriptDir%
 
-;CREATE TABS
-Gui, Add, Tab3,, Templates|Strings
+Gui, Add, Text, x11, **Enter one of the following templates in the subject line, making sure the Product Suite is --None-- and Add "ar", "ne", or "nv" for state contracts**
+Gui, Add, Tab3,, Templates|Strings|Subject Matter Experts
 ;FIRST TAB
 Gui, Font, s12, Times New Roman
-Gui, Add, Text, x11, **Enter one of the following commands in the subject line, making sure the Product Suite is --None--**
 Gui, Add, ListView, r15 w700 NoSortHdr NoSort Grid -Multi -0x8 -LV0x20, Command|Main KA|Result
 GuiControl, +Report, ListView
 LV_ModifyCol(1,155)
@@ -22,34 +21,38 @@ LV_Add(,"#testMissingSuspended", "2249", "Student name is missing from test drop
 LV_Add(,"#testMissingTerminated", "2249", "Student name is missing from test drop down list - Status Terminated")
 LV_Add(,"#practiceTest", "1090", "Practice Test Login Information")
 LV_Add(,"#reportStuckSubmitted", "3185", "Long Report Times and Reports are stuck in Submitted")
-LV_Add(,"#oneStudent", "2751", "Steps to take when one student cannot test")
 LV_Add(,"#chromebookError", "2444", "Chromebook Screen Resolution Error on Login")
 LV_Add(,"#dekalbIT","", "Dekalb IT Wrong Number")
 LV_Add(,"#cpsCase", "1298", "CPS Redirect")
 LV_Add(,"#studyIsland", "1403", "Study Island export help")
+LV_Add(,"#assignTTS", "3507", "Unable to Assign Text-to-speech")
 LV_Add(,"#reportMissing", "2348", "A student or students are missing on reports")
 LV_Add(,"#rosterErrors", "", "Errors while uploading a roster")
-Gui, Add, Button, x307 y425 vClose1, Close
+LV_Add(,"#whitescreen", "3330", "Connection Issues While Testing/One Student Cannot Test")
+Gui, Add, Button, x307 y435 vClose1, Close
 
 
-;SECOND TAB
 Gui, Tab, Strings
-Gui, Add, ListView, r15 w700 NoSortHdr NoSort Grid -Multi -0x8 -LV0x20, Command|Result
+Gui, Add, ListView, r15 w700 Grid -Multi -0x8 -LV0x20, Command|Result
 LV_ModifyCol(1,100)
 LV_ModifyCol(1,"center")
-LV_Add(,"acct", "account")
-LV_Add(,"accts", "accounts")
-LV_Add(,"acctm", "account manager")
-LV_Add(,"admin", "administrator")
-LV_Add(,"adv", "advised")
-LV_Add(,"asg", "Achievement Status and Growth report")
-LV_Add(,"acoord", "assessment coordinator")
-LV_Add(,"cpaac", " CPAA coordinator")
-LV_Add(,"crf", "Class Roster File")
-LV_Add(,"dac", "District Assessment Coordinator")
-LV_Add(,"dadmin", "Data Administrator")
-LV_Add(,"", "")
+LV_ModifyCol(2,470)
+Gui, Add, Button, x307 y435 vClose2, Close
 
+Loop, Read, Tier1Advanced.ahk
+{
+  if A_LoopReadLine contains ::
+  {
+    if A_LoopReadLine not contains #
+    {
+      RegExMatch(A_LoopReadLine, "::(.*?)::", bitInMiddle)
+      RegExMatch(A_LoopReadLine, bitInMiddle . "(.*)", oofta)
+      LV_Add(,bitInMiddle1, oofta1)
+    }
+  }
+}
+
+Gui, Tab, Subject Matter Experts
 
 
 if WinExist("List of Hotstrings")
@@ -59,7 +62,7 @@ Else
   Gui, Show, x152 y125 h475, List of Hotstrings
   Return
 }
-ButtonClose1:
-ButtonClose2:
+ButtonClose:
+2ButtonClose:
 GuiClose:
   ExitApp
